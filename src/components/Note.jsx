@@ -1,5 +1,5 @@
 import React from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 
 export default function Note(props) {
   const handleClick = () => {
@@ -11,7 +11,7 @@ export default function Note(props) {
       <h1>{props.title}</h1>
       <p>{props.content}</p>
       <button onClick={handleClick}>
-        <DeleteIcon />
+        <DeleteRoundedIcon />
       </button>
     </div>
   );
