@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
+import axios from "axios";
 
 const SignUp = (props) => {
   const [email, setEmail] = useState("");
@@ -20,11 +21,30 @@ const SignUp = (props) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (name === "" || email === "" || password === "") {
       alert("Please fill in all fields");
       window.location.reload();
     }
+
+    await axios
+      .post("http://localhost:3001/signup", {
+        name: name,
+        email: email,
+        password: password,
+      })
+      .then(() => {
+        console.log("User Created");
+        alert("User Created, Please Login");
+        window.location.reload();
+      })
+      .catch((err) => {
+        if (err.response.status === 403) {
+          alert("User Already Exists");
+          window.location.reload();
+        }
+        console.error(err);
+      });
   };
 
   const handleLoginClick = () => {

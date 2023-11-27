@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { Box, Button, Typography, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import axios from "axios";
+import { authState } from "../atoms/authState";
 
 const Login = (props) => {
   const { setLandingType } = props;
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [auth, setAuth] = useRecoilState(authState);
+  const navigate = useNavigate();
 
   const handleSignUpClick = () => {
     setLandingType("signup");
@@ -23,6 +29,32 @@ const Login = (props) => {
       alert("Please fill in all fields");
       window.location.reload();
     }
+    axios
+      .post("http://localhost:3001/login", {
+        name: name,
+        password: password,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res.data.token);
+          const token = res.data.token;
+          const name = res.data.name;
+          localStorage.setItem("token", res.data.token);
+          const str = "/notes/" + name;
+
+          if (token) {
+            setAuth(true);
+            navigate(str);
+          }
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 403) {
+          alert("Incorrect Username or Password");
+          window.location.reload();
+        }
+        console.error(err);
+      });
   };
 
   return (

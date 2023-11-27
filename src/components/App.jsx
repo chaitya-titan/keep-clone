@@ -11,18 +11,21 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Landing from "./Landing";
 import { Box } from "@mui/material";
+import { RecoilRoot } from "recoil";
 
 function App() {
   return (
     <Box>
-      <Header />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/notes/:username" element={<AllNotes />} />
-        </Routes>
-      </BrowserRouter>
-      <Footer />
+      <RecoilRoot>
+        <Header />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/notes/:username" element={<AllNotes />} />
+          </Routes>
+        </BrowserRouter>
+        <Footer />
+      </RecoilRoot>
     </Box>
   );
 }
