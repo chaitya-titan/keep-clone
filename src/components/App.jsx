@@ -1,58 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Switch,
+  BrowserRouter,
+} from "react-router-dom";
+import AllNotes from "./AllNotes";
 import Header from "./Header";
 import Footer from "./Footer";
-import Note from "./Note";
-import CreateArea from "./CreateArea";
+import Landing from "./Landing";
+import { Box } from "@mui/material";
 
 function App() {
-  const node = useRef();
-
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", handleClickOutside);
-
-  //   // Clean up the event listener when the component unmounts
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-
-  const handleClickOutside = (event) => {
-    console.log("Clicked");
-  };
-
-  const [notes, setNotes] = useState([]);
-
-  function addNote(newNote) {
-    setNotes((prevNotes) => {
-      return [...prevNotes, newNote];
-    });
-  }
-
-  function deleteNote(id) {
-    setNotes((prevNotes) => {
-      return prevNotes.filter((noteItem, index) => {
-        return index !== id;
-      });
-    });
-  }
-
   return (
-    <div>
+    <Box>
       <Header />
-      <CreateArea onAdd={addNote} />
-      {notes.map((noteItem, index) => {
-        return (
-          <Note
-            key={index}
-            id={index}
-            title={noteItem.title}
-            content={noteItem.content}
-            onDelete={deleteNote}
-          />
-        );
-      })}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/notes/:username" element={<AllNotes />} />
+        </Routes>
+      </BrowserRouter>
       <Footer />
-    </div>
+    </Box>
   );
 }
 
