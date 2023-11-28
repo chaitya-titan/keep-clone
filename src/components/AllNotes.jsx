@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import CreateArea from "./CreateArea";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import Note from "./Note";
 import { authState } from "../atoms/authState";
 
 const AllNotes = () => {
   const [notes, setNotes] = useState([]);
-  const auth = useRecoilValue(authState);
+
+  const [auth, setAuth] = useRecoilState(authState);
+
+  const token = localStorage.getItem("token");
+  if (token) {
+    setAuth(true);
+  }
 
   function addNote(newNote) {
     setNotes((prevNotes) => {

@@ -11,7 +11,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Landing from "./Landing";
 import { Box } from "@mui/material";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, useRecoilState } from "recoil";
+import { authState } from "../atoms/authState";
 
 function App() {
   return (

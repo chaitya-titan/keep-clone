@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Box, TextField, Typography, Button } from "@mui/material";
 import SignUp from "./SignUp";
 import Login from "./Login";
+import { useRecoilState } from "recoil";
+import { landingState } from "../atoms/authState";
 
 const Landing = () => {
-  const [langingType, setLandingType] = useState("signup");
+  const [langingType, setLandingType] = useRecoilState(landingState);
 
   return (
     <Box
