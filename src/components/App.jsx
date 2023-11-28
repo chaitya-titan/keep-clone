@@ -18,8 +18,8 @@ function App() {
   return (
     <Box>
       <RecoilRoot>
-        <Header />
         <BrowserRouter>
+          <Header />
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/notes/:username" element={<AllNotes />} />

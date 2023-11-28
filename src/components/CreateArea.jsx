@@ -2,32 +2,57 @@ import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { Fab } from "@mui/material";
 import { Zoom } from "@mui/material";
+import axios from "axios";
+import { useRecoilState } from "recoil";
+import { authState } from "../atoms/authState";
 
 export default function CreateArea(props) {
   const [isExpanded, setExpanded] = useState(false);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [auth, setAuth] = useRecoilState(authState);
 
-  const [note, setNote] = useState({
-    title: "",
-    content: "",
-  });
+  const { setNotes, notes } = props;
 
-  function handleChange(event) {
-    const { name, value } = event.target;
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
 
-    setNote((prevNote) => {
-      return {
-        ...prevNote,
-        [name]: value,
-      };
-    });
-  }
+  const handleContentChange = (event) => {
+    setContent(event.target.value);
+  };
 
   function submitNote(event) {
-    props.onAdd(note);
-    setNote({
-      title: "",
-      content: "",
-    });
+    axios
+      .post(
+        "http://localhost:3001/api/addNotes",
+        {
+          title: title,
+          content: content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((response) => {
+        const newNote = response.data;
+        console.log("newnote " + newNote.id + " " + newNote.title);
+        setTitle("");
+        setContent("");
+        setExpanded(false);
+        setNotes([...notes, newNote]);
+      })
+      .catch((err) => {
+        if (err.response.status === 403) {
+          localStorage.removeItem("token");
+          setAuth(false);
+          alert("Session Expired, Please Login Again");
+        }
+        console.error(err);
+      });
+
     event.preventDefault();
   }
 
@@ -41,8 +66,8 @@ export default function CreateArea(props) {
         {isExpanded && (
           <input
             name="title"
-            onChange={handleChange}
-            value={note.title}
+            onChange={handleTitleChange}
+            value={title}
             placeholder="Title"
           />
         )}
@@ -50,8 +75,8 @@ export default function CreateArea(props) {
         <textarea
           name="content"
           onClick={expand}
-          onChange={handleChange}
-          value={note.content}
+          onChange={handleContentChange}
+          value={content}
           placeholder="Take a note..."
           rows={isExpanded ? 3 : 1}
         />
