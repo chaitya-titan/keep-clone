@@ -18,6 +18,7 @@
     "nodemon": "^3.0.1",
     "passport": "^0.7.0",
     "passport-google-oauth2": "^0.2.0",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "vercel": "^32.6.0"
   }
 }
