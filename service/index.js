@@ -12,13 +12,9 @@ require("dotenv").config();
 const app = express();
 
 SECRET = process.env.SECRET;
-const path = require("path");
-const usersFilePath = path.join(process.cwd(), "Users.json");
-const todoFilePath = path.join(process.cwd(), "Todo.json");
 
-// Read files using absolute paths or environment variables
-User = JSON.parse(fs.readFileSync(usersFilePath, "utf8"));
-Todo = JSON.parse(fs.readFileSync(todoFilePath, "utf8"));
+User = JSON.parse(fs.readFileSync("./Users.json", "utf8"));
+Todo = JSON.parse(fs.readFileSync("./Todo.json", "utf8"));
 
 app.use(express.json());
 app.use(session({ secret: process.env.SECRET }));
