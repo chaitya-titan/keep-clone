@@ -22,7 +22,7 @@ function Header() {
     >
       <h1>
         <HighlightIcon />
-        Keeper
+        NoteSync
       </h1>
       {auth ? (
         <IconButton>
