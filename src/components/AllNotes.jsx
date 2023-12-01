@@ -15,7 +15,25 @@ const AllNotes = () => {
     setAuth(true);
   }
 
+  // useEffect(() => {
+  //   // Function to extract token from URL query parameter
+
+  // }, []);
+
   useEffect(() => {
+    const getTokenFromURL = () => {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const token = urlParams.get("token");
+      if (token) {
+        // Store the token in local storage
+        localStorage.setItem("token", token);
+        setAuth(true);
+      }
+    };
+
+    getTokenFromURL();
+
     axios
       .get("http://localhost:3001/api/notes", {
         headers: {
@@ -33,8 +51,6 @@ const AllNotes = () => {
         console.error(err);
       });
   }, []);
-
-  console.log(notes);
 
   return (
     <div>

@@ -1,15 +1,34 @@
-import React from "react";
-import { Button, IconButton } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Button, IconButton, Avatar } from "@mui/material";
 import HighlightIcon from "@mui/icons-material/Highlight";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { landingState } from "../atoms/authState";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import { authState } from "../atoms/authState";
 import { Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Header() {
   const [landing, setLanding] = useRecoilState(landingState);
+  const [picture, setPicture] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    axios
+      .get("http://localhost:3001/api/picture", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setPicture(response.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   const auth = useRecoilValue(authState);
 
@@ -26,7 +45,11 @@ function Header() {
       </h1>
       {auth ? (
         <IconButton>
-          <AccountCircleRoundedIcon />
+          {picture.length > 0 ? (
+            <Avatar alt="Remy Sharp" src={picture} />
+          ) : (
+            <AccountCircleRoundedIcon />
+          )}
         </IconButton>
       ) : (
         <Button

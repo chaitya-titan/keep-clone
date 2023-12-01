@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, Typography, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import axios from "axios";
 import { authState } from "../atoms/authState";
+import GoogleButton from "react-google-button";
 
 const Login = (props) => {
   const { setLandingType } = props;
@@ -22,6 +23,10 @@ const Login = (props) => {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+
+  const handleGoogleButton = async () => {
+    window.location.href = "http://localhost:3001/auth/google";
   };
 
   const handleSubmit = () => {
@@ -69,6 +74,16 @@ const Login = (props) => {
         mt: 3,
       }}
     >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mb: 3,
+          width: "100%",
+        }}
+      >
+        <GoogleButton onClick={handleGoogleButton} />
+      </Box>
       <Typography variant="h6" component="h6" gutterBottom>
         Please Login
       </Typography>
