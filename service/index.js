@@ -13,8 +13,8 @@ const app = express();
 
 SECRET = process.env.SECRET;
 const path = require("path");
-const usersFilePath = path.join(process.cwd(), "data", "Users.json");
-const todoFilePath = path.join(process.cwd(), "data", "Todo.json");
+const usersFilePath = path.join(process.cwd(), "Users.json");
+const todoFilePath = path.join(process.cwd(), "Todo.json");
 
 // Read files using absolute paths or environment variables
 User = JSON.parse(fs.readFileSync(usersFilePath, "utf8"));
