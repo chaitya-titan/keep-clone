@@ -6,6 +6,8 @@ const { v4: uuidv4 } = require("uuid");
 const passport = require("passport");
 const session = require("express-session");
 const { profile, log } = require("console");
+const path = require("path");
+// const User = require("./Users.json");
 // require("./auth");
 require("dotenv").config();
 
@@ -13,8 +15,11 @@ const app = express();
 
 SECRET = process.env.SECRET;
 
-User = JSON.parse(fs.readFileSync("./Users.json", "utf8"));
-Todo = JSON.parse(fs.readFileSync("./Todo.json", "utf8"));
+// console.log(path.join(__dirname, "Users.json"));
+
+User = JSON.parse(fs.readFileSync(path.join(__dirname, "Users.json"), "utf8"));
+// User = JSON.parse(fs.readFileSync("./Users.json", "utf8"));
+// Todo = JSON.parse(fs.readFileSync("./Todo.json", "utf8"));
 
 app.use(express.json());
 app.use(session({ secret: process.env.SECRET }));
