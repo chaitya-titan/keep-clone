@@ -28,7 +28,7 @@ const SignUp = (props) => {
     }
 
     await axios
-      .post("http://localhost:3001/signup", {
+      .post("https://keep-clone-server.vercel.app/signup", {
         name: name,
         email: email,
         password: password,

@@ -13,7 +13,7 @@ export default function Note(props) {
 
     axios
       .post(
-        "http://localhost:3001/api/deleteNotes",
+        "https://keep-clone-server.vercel.app/api/deleteNotes",
         {
           id: id,
         },

@@ -30,7 +30,7 @@ const Login = (props) => {
       window.location.reload();
     }
     axios
-      .post("http://localhost:3001/login", {
+      .post("https://keep-clone-server.vercel.app/login", {
         name: name,
         password: password,
       })

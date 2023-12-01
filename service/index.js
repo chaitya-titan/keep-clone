@@ -102,7 +102,7 @@ app.post("/api/addNotes", authenticateJwt, async (req, res) => {
   const todos = user.todos;
   const id = `id_${Date.now()}`;
   await user.todos.push({ id: id, title, content });
-  fs.writeFileSync("Users.json", JSON.stringify(User));
+  fs.writeFileSync(path.join(__dirname, "Users.json"), JSON.stringify(User));
   res.json({ id, title, content });
 });
 
@@ -115,7 +115,7 @@ app.post("/api/deleteNotes", authenticateJwt, (req, res) => {
   const newTodos = todos.filter((todo) => todo.id !== id);
   console.log(newTodos);
   user.todos = newTodos;
-  fs.writeFileSync("Users.json", JSON.stringify(User));
+  fs.writeFileSync(path.join(__dirname, "Users.json"), JSON.stringify(User));
   res.json(user.todos);
 });
 
