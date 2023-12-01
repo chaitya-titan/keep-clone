@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 const passport = require("passport");
 const session = require("express-session");
 const { profile, log } = require("console");
-require("./auth");
+// require("./auth");
 require("dotenv").config();
 
 const app = express();
@@ -114,34 +114,34 @@ app.post("/api/deleteNotes", authenticateJwt, (req, res) => {
   res.json(user.todos);
 });
 
-app.get("/auth/login", (req, res) => {
-  const { name } = req.user;
-  console.log(name.givenName);
-  const token = jwt.sign({ name: name.givenName, role: "user" }, SECRET, {
-    expiresIn: "15m",
-  });
-  // res.json({ token });
-  res.redirect(
-    `http://localhost:3000/notes/${req.user.given_name}?token=${token}`
-  );
-});
+// app.get("/auth/login", (req, res) => {
+//   const { name } = req.user;
+//   console.log(name.givenName);
+//   const token = jwt.sign({ name: name.givenName, role: "user" }, SECRET, {
+//     expiresIn: "15m",
+//   });
+//   // res.json({ token });
+//   res.redirect(
+//     `http://localhost:3000/notes/${req.user.given_name}?token=${token}`
+//   );
+// });
 
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["email", "profile"] })
-);
+// app.get(
+//   "/auth/google",
+//   passport.authenticate("google", { scope: ["email", "profile"] })
+// );
 
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    successRedirect: "/auth/login",
-    failureRedirect: "/auth/google/failure",
-  })
-);
+// app.get(
+//   "/auth/google/callback",
+//   passport.authenticate("google", {
+//     successRedirect: "/auth/login",
+//     failureRedirect: "/auth/google/failure",
+//   })
+// );
 
-app.get("/auth/google/failure", (req, res) => {
-  res.send("Failed to authenticate..");
-});
+// app.get("/auth/google/failure", (req, res) => {
+//   res.send("Failed to authenticate..");
+// });
 
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
