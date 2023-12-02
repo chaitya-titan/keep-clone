@@ -69,7 +69,7 @@ const SignUp = (props) => {
           width: "75%",
           mt: 2,
         }}
-        id="outlined-basic"
+        id="outlined-basic1"
         label="Username"
         variant="outlined"
         onChange={handleNameChange}
