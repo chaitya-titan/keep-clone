@@ -11,7 +11,7 @@ export default function Note(props) {
   const handleClick = () => {
     axios
       .post(
-        "http://localhost:3001/api/deleteNotes",
+        "https://keep-clone-server.vercel.app/api/deleteNotes",
         {
           id: id,
         },

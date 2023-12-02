@@ -25,7 +25,7 @@ export default function CreateArea(props) {
   function submitNote(event) {
     axios
       .post(
-        "http://localhost:3001/api/addNotes",
+        "https://keep-clone-server.vercel.app/api/addNotes",
         {
           title: title,
           content: content,
