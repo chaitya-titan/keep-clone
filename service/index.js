@@ -70,6 +70,8 @@ app.post("/signup", async (req, res) => {
 
   console.log(inserted);
 
+  res.send("OK");
+
   // if (User.find((user) => user.email === email)) {
   //   return res.status(403).send("User already exists");
   // } else {
