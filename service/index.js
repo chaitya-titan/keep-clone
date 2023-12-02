@@ -63,7 +63,7 @@ app.post("/signup", (req, res) => {
     return res.status(403).send("User already exists");
   } else {
     User.push({ name, email, password, todos: [] });
-    fs.writeFileSync("Users.json", JSON.stringify(User));
+    fs.writeFileSync(path.join(__dirname, "Users.json"), JSON.stringify(User));
     res.send("OK");
   }
 });
