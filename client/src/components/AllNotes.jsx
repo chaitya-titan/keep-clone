@@ -17,7 +17,7 @@ const AllNotes = () => {
 
   useEffect(() => {
     axios
-      .get("https://keep-clone-server.vercel.app/api/notes", {
+      .get("http://localhost:3001/api/notes", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -33,8 +33,6 @@ const AllNotes = () => {
         console.error(err);
       });
   }, []);
-
-  console.log(notes);
 
   return (
     <div>

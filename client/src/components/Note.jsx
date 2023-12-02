@@ -9,11 +9,9 @@ export default function Note(props) {
   const [auth, setAuth] = useRecoilState(authState);
 
   const handleClick = () => {
-    console.log(id);
-
     axios
       .post(
-        "https://keep-clone-server.vercel.app/api/deleteNotes",
+        "http://localhost:3001/api/deleteNotes",
         {
           id: id,
         },
@@ -24,7 +22,6 @@ export default function Note(props) {
         }
       )
       .then((response) => {
-        console.log(response.data);
         setNotes(response.data);
       })
       .catch((err) => {

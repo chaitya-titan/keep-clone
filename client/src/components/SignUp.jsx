@@ -28,13 +28,12 @@ const SignUp = (props) => {
     }
 
     await axios
-      .post("https://keep-clone-server.vercel.app/signup", {
+      .post("http://localhost:3001/signup", {
         name: name,
         email: email,
         password: password,
       })
       .then(() => {
-        console.log("User Created");
         alert("User Created, Please Login");
         window.location.reload();
       })

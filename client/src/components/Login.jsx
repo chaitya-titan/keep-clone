@@ -30,13 +30,12 @@ const Login = (props) => {
       window.location.reload();
     }
     axios
-      .post("https://keep-clone-server.vercel.app/login", {
+      .post("http://localhost:3001/login", {
         name: name,
         password: password,
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data.token);
           const token = res.data.token;
           const name = res.data.name;
           localStorage.setItem("token", res.data.token);
